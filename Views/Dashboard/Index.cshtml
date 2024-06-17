@@ -1,0 +1,76 @@
+﻿
+@model IEnumerable<WebApplication1.Models.TodoItem>
+
+@{
+    ViewBag.Title = "Real-Time Dashboard";
+}
+
+<h2>Real-Time Dashboard</h2>
+
+<div class="board">
+    <div class="column">
+        <h3>To Do List</h3>
+        @foreach(var item in Model)
+        {
+            if(item.DueDate>DateTime.Today)
+            {
+               <ul id="todo-tasks">@item.Title</ul>
+            }
+        }
+    </div>
+    <div class="column">
+        <h3>In Work</h3>
+        @foreach (var item in Model)
+        {
+            if (item.DueDate < DateTime.Today && item.IsComplete == false)
+            {
+                <ul id="inwork-tasks">@item.Title</ul>
+            }
+        }
+    </div>
+    <div class="column">
+        <h3>Done</h3>
+        @foreach (var item in Model)
+        {
+            if (item.DueDate < DateTime.Today && item.IsComplete == true)
+            {
+                <ul id="done-tasks">@item.Title</ul>
+            }
+        }
+        </div>
+</div>
+    <style>
+        .board {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .column {
+            flex: 1;
+            padding: 20px;
+            border: 1px solid #ccc;
+            margin: 5px;
+            background-color: #f9f9f9;
+        }
+
+        #todo-tasks {
+            list-style-type: none;
+            padding: 5;
+            font-size: 25px;
+            background-color: orangered;
+        }
+
+        #inwork-tasks {
+            list-style-type: none;
+            padding: 5;
+            font-size: 25px;
+            background-color: orange;
+        }
+
+        #done-tasks {
+            list-style-type: none;
+            padding: 5;
+            font-size: 25px;
+            background-color: greenyellow;
+        }
+    </style>
